@@ -1,0 +1,24 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+import cv2
+# + d’autres imports
+# la liste des classifiers d'OpenCV que nous
+utiliserons
+TRAINSET_FACE_FRONTAL = "/usr/share/opencv/
+haarcascades/haarcascade_frontalface_
+default.xml"
+TRAINSET_FACE_PROFILE = "/usr/share/opencv/
+haarcascades/haarcascade_profileface.xml"
+TRAINSET_BODY_FULL = "/usr/share/opencv/
+haarcascades/haarcascade_fullbody.xml"
+# des paramètres liés à la taille des images
+DOWNSCALE = 1.1
+# ratio appliqué à
+l'image. La valeur doit être > 1
+MAX_SIZE = 800
+# taille maximale de
+l'image en pixels
+class OpenCVGenericDetection:
+def __init__(self, image_path, archive_
+folder = "/tmp/", debug = False):
+""" Constructeur de la classe
