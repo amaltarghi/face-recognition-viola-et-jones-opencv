@@ -37,7 +37,7 @@ class OpenCVGenericDetection:
          # charge an image in a frame
          # a frame in open a cv is an image object in memort, it is easy to manipluate frames in on open cv instead of loading images 
          self.frame = cv2.imread(image_path)
-         logging.info("Résolution de l'image : '{0}x{1}'".format(self.frame.shape[0], self.frame.shape[1]))
+         logging.info("Image resolution : '{0}x{1}'".format(self.frame.shape[0], self.frame.shape[1]))
 
          # verify if the image is "big" if it is the case we calculate the ratio to reduce it
          ratio = 1
@@ -46,3 +46,32 @@ class OpenCVGenericDetection:
                  ratio = float(self.frame.shape[1])/ MAX_SIZE
              else:
                  ratio = float(self.frame.shape[0])/ MAX_SIZE
+         # If the image is "big" we change the size
+         if ratio != 1:
+             newsize = (int(self.frame.shape[1]/ratio),int(self.frame.shape[0]/ratio))
+             logging.info("Redimensionnement de l'imageen : {0}".format(newsize))
+             self.frame = cv2.resize(self.frame,newsize)
+             # Affichage de l'image originale
+         if self.debug:
+         
+             cv2.imshow("preview", self.frame)
+             cv2.waitKey()
+""" 	Classifier choice """ 
+    def set_classifier(self):
+
+        self.classifier = None
+""" 	Visage detection """ 
+    def find_items(self):
+" find the items (what we want te detect in our case is a visage) in a frame items is a list containing the coordinate of the face in format(x, y, h, w) """
+"""Exemple :
+[[ 483 137 47 47]
+[ 357 152 46 46]
+...
+[ 126 167 51 51]]
+"""
+        logging.info("look for items...")
+# apply classifier to detect items (faces)
+        items = self.classifier. detectMultiScale(self.frame, scaleFactor = DOWNSCALE)
+        logging.info("Nombre d'items : '{0}'".format(len(items)))
+        logging.info("Items = {0}".format(items))
+        self.items = ites
